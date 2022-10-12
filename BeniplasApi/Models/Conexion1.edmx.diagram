@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fcfbd645c3da4c969937025fb5b2b8d6" Name="Diagram1">
+        <EntityTypeShape EntityType="BeniplasModel.Administradors" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeniplasModel.Empleadoes" Width="1.5" PointX="8" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeniplasModel.Empresas" Width="1.5" PointX="0.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeniplasModel.Gerentes" Width="1.5" PointX="2.625" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeniplasModel.RegistroAperturaAdministradors" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeniplasModel.RegistroAperturaEmpleadoes" Width="1.5" PointX="10.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeniplasModel.RegistroAperturaGerentes" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeniplasModel.Sucursals" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeniplasModel.sysdiagrams" Width="1.5" PointX="10" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="BeniplasModel.FK_dbo_RegistroAperturaAdministradors_dbo_Administradors_Administrador_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="BeniplasModel.FK_dbo_Empleadoes_dbo_Sucursals_Sucursal_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="BeniplasModel.FK_dbo_RegistroAperturaEmpleadoes_dbo_Empleadoes_Empleado_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="BeniplasModel.FK_dbo_Gerentes_dbo_Empresas_Empresa_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="BeniplasModel.FK_dbo_Sucursals_dbo_Empresas_Empresa_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="BeniplasModel.FK_dbo_RegistroAperturaGerentes_dbo_Gerentes_Gerente_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="BeniplasModel.FK_dbo_Sucursals_dbo_Gerentes_Gerente_ID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

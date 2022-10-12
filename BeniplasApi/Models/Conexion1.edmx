@@ -1,0 +1,599 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BeniplasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administradors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreUsuario" Type="nvarchar(max)" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="ApellidoP" Type="nvarchar(max)" />
+          <Property Name="ApellidoM" Type="nvarchar(max)" />
+          <Property Name="NumTel" Type="bigint" Nullable="false" />
+          <Property Name="Contrasena" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Empleadoes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreUsuario" Type="nvarchar(max)" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="ApellidoP" Type="nvarchar(max)" />
+          <Property Name="ApellidoM" Type="nvarchar(max)" />
+          <Property Name="NumTel" Type="bigint" Nullable="false" />
+          <Property Name="Contrasena" Type="nvarchar(max)" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Codigo" Type="bigint" Nullable="false" />
+          <Property Name="Sucursal_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Empresas">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Gerentes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreUsuario" Type="nvarchar(max)" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="ApellidoP" Type="nvarchar(max)" />
+          <Property Name="ApellidoM" Type="nvarchar(max)" />
+          <Property Name="Region" Type="nvarchar(max)" />
+          <Property Name="NumTel" Type="bigint" Nullable="false" />
+          <Property Name="Contrasena" Type="nvarchar(max)" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Empresa_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="RegistroAperturaAdministradors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comentario" Type="nvarchar(max)" />
+          <Property Name="FechaHora" Type="datetime" Nullable="false" />
+          <Property Name="Administrador_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="RegistroAperturaEmpleadoes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comentario" Type="nvarchar(max)" />
+          <Property Name="FechaHora" Type="datetime" Nullable="false" />
+          <Property Name="Empleado_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="RegistroAperturaGerentes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comentario" Type="nvarchar(max)" />
+          <Property Name="FechaHora" Type="datetime" Nullable="false" />
+          <Property Name="Gerente_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Sucursals">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumSucursal" Type="int" Nullable="false" />
+          <Property Name="Direccion" Type="nvarchar(max)" />
+          <Property Name="Gerente_ID" Type="int" />
+          <Property Name="Empresa_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_Empleadoes_dbo_Sucursals_Sucursal_ID">
+          <End Role="Sucursals" Type="Self.Sucursals" Multiplicity="0..1" />
+          <End Role="Empleadoes" Type="Self.Empleadoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Empleadoes">
+              <PropertyRef Name="Sucursal_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Gerentes_dbo_Empresas_Empresa_ID">
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="0..1" />
+          <End Role="Gerentes" Type="Self.Gerentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Gerentes">
+              <PropertyRef Name="Empresa_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_RegistroAperturaAdministradors_dbo_Administradors_Administrador_ID">
+          <End Role="Administradors" Type="Self.Administradors" Multiplicity="0..1" />
+          <End Role="RegistroAperturaAdministradors" Type="Self.RegistroAperturaAdministradors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administradors">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RegistroAperturaAdministradors">
+              <PropertyRef Name="Administrador_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_RegistroAperturaEmpleadoes_dbo_Empleadoes_Empleado_ID">
+          <End Role="Empleadoes" Type="Self.Empleadoes" Multiplicity="0..1" />
+          <End Role="RegistroAperturaEmpleadoes" Type="Self.RegistroAperturaEmpleadoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleadoes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RegistroAperturaEmpleadoes">
+              <PropertyRef Name="Empleado_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_RegistroAperturaGerentes_dbo_Gerentes_Gerente_ID">
+          <End Role="Gerentes" Type="Self.Gerentes" Multiplicity="0..1" />
+          <End Role="RegistroAperturaGerentes" Type="Self.RegistroAperturaGerentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gerentes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RegistroAperturaGerentes">
+              <PropertyRef Name="Gerente_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sucursals_dbo_Empresas_Empresa_ID">
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="0..1" />
+          <End Role="Sucursals" Type="Self.Sucursals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sucursals">
+              <PropertyRef Name="Empresa_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sucursals_dbo_Gerentes_Gerente_ID">
+          <End Role="Gerentes" Type="Self.Gerentes" Multiplicity="0..1" />
+          <End Role="Sucursals" Type="Self.Sucursals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gerentes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sucursals">
+              <PropertyRef Name="Gerente_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BeniplasModelStoreContainer">
+          <EntitySet Name="Administradors" EntityType="Self.Administradors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleadoes" EntityType="Self.Empleadoes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresas" EntityType="Self.Empresas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gerentes" EntityType="Self.Gerentes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistroAperturaAdministradors" EntityType="Self.RegistroAperturaAdministradors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistroAperturaEmpleadoes" EntityType="Self.RegistroAperturaEmpleadoes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistroAperturaGerentes" EntityType="Self.RegistroAperturaGerentes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sucursals" EntityType="Self.Sucursals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Empleadoes_dbo_Sucursals_Sucursal_ID" Association="Self.FK_dbo_Empleadoes_dbo_Sucursals_Sucursal_ID">
+            <End Role="Sucursals" EntitySet="Sucursals" />
+            <End Role="Empleadoes" EntitySet="Empleadoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Gerentes_dbo_Empresas_Empresa_ID" Association="Self.FK_dbo_Gerentes_dbo_Empresas_Empresa_ID">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Gerentes" EntitySet="Gerentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_RegistroAperturaAdministradors_dbo_Administradors_Administrador_ID" Association="Self.FK_dbo_RegistroAperturaAdministradors_dbo_Administradors_Administrador_ID">
+            <End Role="Administradors" EntitySet="Administradors" />
+            <End Role="RegistroAperturaAdministradors" EntitySet="RegistroAperturaAdministradors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_RegistroAperturaEmpleadoes_dbo_Empleadoes_Empleado_ID" Association="Self.FK_dbo_RegistroAperturaEmpleadoes_dbo_Empleadoes_Empleado_ID">
+            <End Role="Empleadoes" EntitySet="Empleadoes" />
+            <End Role="RegistroAperturaEmpleadoes" EntitySet="RegistroAperturaEmpleadoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_RegistroAperturaGerentes_dbo_Gerentes_Gerente_ID" Association="Self.FK_dbo_RegistroAperturaGerentes_dbo_Gerentes_Gerente_ID">
+            <End Role="Gerentes" EntitySet="Gerentes" />
+            <End Role="RegistroAperturaGerentes" EntitySet="RegistroAperturaGerentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sucursals_dbo_Empresas_Empresa_ID" Association="Self.FK_dbo_Sucursals_dbo_Empresas_Empresa_ID">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Sucursals" EntitySet="Sucursals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sucursals_dbo_Gerentes_Gerente_ID" Association="Self.FK_dbo_Sucursals_dbo_Gerentes_Gerente_ID">
+            <End Role="Gerentes" EntitySet="Gerentes" />
+            <End Role="Sucursals" EntitySet="Sucursals" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BeniplasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administradors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreUsuario" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApellidoP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApellidoM" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NumTel" Type="Int64" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RegistroAperturaAdministradors" Relationship="Self.FK_dbo_RegistroAperturaAdministradors_dbo_Administradors_Administrador_ID" FromRole="Administradors" ToRole="RegistroAperturaAdministradors" />
+        </EntityType>
+        <EntityType Name="Empleadoes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreUsuario" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApellidoP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApellidoM" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NumTel" Type="Int64" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Codigo" Type="Int64" Nullable="false" />
+          <Property Name="Sucursal_ID" Type="Int32" />
+          <NavigationProperty Name="Sucursals" Relationship="Self.FK_dbo_Empleadoes_dbo_Sucursals_Sucursal_ID" FromRole="Empleadoes" ToRole="Sucursals" />
+          <NavigationProperty Name="RegistroAperturaEmpleadoes" Relationship="Self.FK_dbo_RegistroAperturaEmpleadoes_dbo_Empleadoes_Empleado_ID" FromRole="Empleadoes" ToRole="RegistroAperturaEmpleadoes" />
+        </EntityType>
+        <EntityType Name="Empresas">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Gerentes" Relationship="Self.FK_dbo_Gerentes_dbo_Empresas_Empresa_ID" FromRole="Empresas" ToRole="Gerentes" />
+          <NavigationProperty Name="Sucursals" Relationship="Self.FK_dbo_Sucursals_dbo_Empresas_Empresa_ID" FromRole="Empresas" ToRole="Sucursals" />
+        </EntityType>
+        <EntityType Name="Gerentes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreUsuario" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApellidoP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApellidoM" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Region" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NumTel" Type="Int64" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Empresa_ID" Type="Int32" />
+          <NavigationProperty Name="Empresas" Relationship="Self.FK_dbo_Gerentes_dbo_Empresas_Empresa_ID" FromRole="Gerentes" ToRole="Empresas" />
+          <NavigationProperty Name="RegistroAperturaGerentes" Relationship="Self.FK_dbo_RegistroAperturaGerentes_dbo_Gerentes_Gerente_ID" FromRole="Gerentes" ToRole="RegistroAperturaGerentes" />
+          <NavigationProperty Name="Sucursals" Relationship="Self.FK_dbo_Sucursals_dbo_Gerentes_Gerente_ID" FromRole="Gerentes" ToRole="Sucursals" />
+        </EntityType>
+        <EntityType Name="RegistroAperturaAdministradors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comentario" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Administrador_ID" Type="Int32" />
+          <NavigationProperty Name="Administradors" Relationship="Self.FK_dbo_RegistroAperturaAdministradors_dbo_Administradors_Administrador_ID" FromRole="RegistroAperturaAdministradors" ToRole="Administradors" />
+        </EntityType>
+        <EntityType Name="RegistroAperturaEmpleadoes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comentario" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Empleado_ID" Type="Int32" />
+          <NavigationProperty Name="Empleadoes" Relationship="Self.FK_dbo_RegistroAperturaEmpleadoes_dbo_Empleadoes_Empleado_ID" FromRole="RegistroAperturaEmpleadoes" ToRole="Empleadoes" />
+        </EntityType>
+        <EntityType Name="RegistroAperturaGerentes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comentario" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Gerente_ID" Type="Int32" />
+          <NavigationProperty Name="Gerentes" Relationship="Self.FK_dbo_RegistroAperturaGerentes_dbo_Gerentes_Gerente_ID" FromRole="RegistroAperturaGerentes" ToRole="Gerentes" />
+        </EntityType>
+        <EntityType Name="Sucursals">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumSucursal" Type="Int32" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gerente_ID" Type="Int32" />
+          <Property Name="Empresa_ID" Type="Int32" />
+          <NavigationProperty Name="Empleadoes" Relationship="Self.FK_dbo_Empleadoes_dbo_Sucursals_Sucursal_ID" FromRole="Sucursals" ToRole="Empleadoes" />
+          <NavigationProperty Name="Empresas" Relationship="Self.FK_dbo_Sucursals_dbo_Empresas_Empresa_ID" FromRole="Sucursals" ToRole="Empresas" />
+          <NavigationProperty Name="Gerentes" Relationship="Self.FK_dbo_Sucursals_dbo_Gerentes_Gerente_ID" FromRole="Sucursals" ToRole="Gerentes" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_dbo_RegistroAperturaAdministradors_dbo_Administradors_Administrador_ID">
+          <End Role="Administradors" Type="Self.Administradors" Multiplicity="0..1" />
+          <End Role="RegistroAperturaAdministradors" Type="Self.RegistroAperturaAdministradors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administradors">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RegistroAperturaAdministradors">
+              <PropertyRef Name="Administrador_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Empleadoes_dbo_Sucursals_Sucursal_ID">
+          <End Role="Sucursals" Type="Self.Sucursals" Multiplicity="0..1" />
+          <End Role="Empleadoes" Type="Self.Empleadoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sucursals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Empleadoes">
+              <PropertyRef Name="Sucursal_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_RegistroAperturaEmpleadoes_dbo_Empleadoes_Empleado_ID">
+          <End Role="Empleadoes" Type="Self.Empleadoes" Multiplicity="0..1" />
+          <End Role="RegistroAperturaEmpleadoes" Type="Self.RegistroAperturaEmpleadoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleadoes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RegistroAperturaEmpleadoes">
+              <PropertyRef Name="Empleado_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Gerentes_dbo_Empresas_Empresa_ID">
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="0..1" />
+          <End Role="Gerentes" Type="Self.Gerentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Gerentes">
+              <PropertyRef Name="Empresa_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sucursals_dbo_Empresas_Empresa_ID">
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="0..1" />
+          <End Role="Sucursals" Type="Self.Sucursals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sucursals">
+              <PropertyRef Name="Empresa_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_RegistroAperturaGerentes_dbo_Gerentes_Gerente_ID">
+          <End Role="Gerentes" Type="Self.Gerentes" Multiplicity="0..1" />
+          <End Role="RegistroAperturaGerentes" Type="Self.RegistroAperturaGerentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gerentes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RegistroAperturaGerentes">
+              <PropertyRef Name="Gerente_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Sucursals_dbo_Gerentes_Gerente_ID">
+          <End Role="Gerentes" Type="Self.Gerentes" Multiplicity="0..1" />
+          <End Role="Sucursals" Type="Self.Sucursals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gerentes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sucursals">
+              <PropertyRef Name="Gerente_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BeniplasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administradors" EntityType="Self.Administradors" />
+          <EntitySet Name="Empleadoes" EntityType="Self.Empleadoes" />
+          <EntitySet Name="Empresas" EntityType="Self.Empresas" />
+          <EntitySet Name="Gerentes" EntityType="Self.Gerentes" />
+          <EntitySet Name="RegistroAperturaAdministradors" EntityType="Self.RegistroAperturaAdministradors" />
+          <EntitySet Name="RegistroAperturaEmpleadoes" EntityType="Self.RegistroAperturaEmpleadoes" />
+          <EntitySet Name="RegistroAperturaGerentes" EntityType="Self.RegistroAperturaGerentes" />
+          <EntitySet Name="Sucursals" EntityType="Self.Sucursals" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_dbo_RegistroAperturaAdministradors_dbo_Administradors_Administrador_ID" Association="Self.FK_dbo_RegistroAperturaAdministradors_dbo_Administradors_Administrador_ID">
+            <End Role="Administradors" EntitySet="Administradors" />
+            <End Role="RegistroAperturaAdministradors" EntitySet="RegistroAperturaAdministradors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Empleadoes_dbo_Sucursals_Sucursal_ID" Association="Self.FK_dbo_Empleadoes_dbo_Sucursals_Sucursal_ID">
+            <End Role="Sucursals" EntitySet="Sucursals" />
+            <End Role="Empleadoes" EntitySet="Empleadoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_RegistroAperturaEmpleadoes_dbo_Empleadoes_Empleado_ID" Association="Self.FK_dbo_RegistroAperturaEmpleadoes_dbo_Empleadoes_Empleado_ID">
+            <End Role="Empleadoes" EntitySet="Empleadoes" />
+            <End Role="RegistroAperturaEmpleadoes" EntitySet="RegistroAperturaEmpleadoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Gerentes_dbo_Empresas_Empresa_ID" Association="Self.FK_dbo_Gerentes_dbo_Empresas_Empresa_ID">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Gerentes" EntitySet="Gerentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sucursals_dbo_Empresas_Empresa_ID" Association="Self.FK_dbo_Sucursals_dbo_Empresas_Empresa_ID">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Sucursals" EntitySet="Sucursals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_RegistroAperturaGerentes_dbo_Gerentes_Gerente_ID" Association="Self.FK_dbo_RegistroAperturaGerentes_dbo_Gerentes_Gerente_ID">
+            <End Role="Gerentes" EntitySet="Gerentes" />
+            <End Role="RegistroAperturaGerentes" EntitySet="RegistroAperturaGerentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Sucursals_dbo_Gerentes_Gerente_ID" Association="Self.FK_dbo_Sucursals_dbo_Gerentes_Gerente_ID">
+            <End Role="Gerentes" EntitySet="Gerentes" />
+            <End Role="Sucursals" EntitySet="Sucursals" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BeniplasModelStoreContainer" CdmEntityContainer="BeniplasEntities">
+          <EntitySetMapping Name="Administradors">
+            <EntityTypeMapping TypeName="BeniplasModel.Administradors">
+              <MappingFragment StoreEntitySet="Administradors">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoP" ColumnName="ApellidoP" />
+                <ScalarProperty Name="ApellidoM" ColumnName="ApellidoM" />
+                <ScalarProperty Name="NumTel" ColumnName="NumTel" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleadoes">
+            <EntityTypeMapping TypeName="BeniplasModel.Empleadoes">
+              <MappingFragment StoreEntitySet="Empleadoes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoP" ColumnName="ApellidoP" />
+                <ScalarProperty Name="ApellidoM" ColumnName="ApellidoM" />
+                <ScalarProperty Name="NumTel" ColumnName="NumTel" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Sucursal_ID" ColumnName="Sucursal_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresas">
+            <EntityTypeMapping TypeName="BeniplasModel.Empresas">
+              <MappingFragment StoreEntitySet="Empresas">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gerentes">
+            <EntityTypeMapping TypeName="BeniplasModel.Gerentes">
+              <MappingFragment StoreEntitySet="Gerentes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoP" ColumnName="ApellidoP" />
+                <ScalarProperty Name="ApellidoM" ColumnName="ApellidoM" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="NumTel" ColumnName="NumTel" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Empresa_ID" ColumnName="Empresa_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistroAperturaAdministradors">
+            <EntityTypeMapping TypeName="BeniplasModel.RegistroAperturaAdministradors">
+              <MappingFragment StoreEntitySet="RegistroAperturaAdministradors">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="Administrador_ID" ColumnName="Administrador_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistroAperturaEmpleadoes">
+            <EntityTypeMapping TypeName="BeniplasModel.RegistroAperturaEmpleadoes">
+              <MappingFragment StoreEntitySet="RegistroAperturaEmpleadoes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="Empleado_ID" ColumnName="Empleado_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistroAperturaGerentes">
+            <EntityTypeMapping TypeName="BeniplasModel.RegistroAperturaGerentes">
+              <MappingFragment StoreEntitySet="RegistroAperturaGerentes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="Gerente_ID" ColumnName="Gerente_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sucursals">
+            <EntityTypeMapping TypeName="BeniplasModel.Sucursals">
+              <MappingFragment StoreEntitySet="Sucursals">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NumSucursal" ColumnName="NumSucursal" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Gerente_ID" ColumnName="Gerente_ID" />
+                <ScalarProperty Name="Empresa_ID" ColumnName="Empresa_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BeniplasModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
